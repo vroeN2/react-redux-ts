@@ -299,11 +299,11 @@ export enum Status {
 // Converts JSON strings to/from your types
 // and asserts the results of JSON.parse at runtime
 export class Convert {
-  public static toWelcome(json: string): Welcome[] {
+  public static toWelcome(json: string): CountriesDataType[] {
     return cast(JSON.parse(json), a(r("Welcome")));
   }
 
-  public static welcomeToJson(value: Welcome[]): string {
+  public static welcomeToJson(value: CountriesDataType[]): string {
     return JSON.stringify(uncast(value, a(r("Welcome"))), null, 2);
   }
 }
@@ -456,7 +456,7 @@ function r(name: string) {
 }
 
 const typeMap: any = {
-  Welcome: o(
+  CountriesDataType: o(
     [
       { json: "name", js: "name", typ: r("Name") },
       { json: "tld", js: "tld", typ: u(undefined, a("")) },

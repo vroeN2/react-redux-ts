@@ -1,8 +1,9 @@
 import { ActionType } from "../action-types";
+import { CountriesDataType } from "../interfaces/CountriesDataType";
 
 interface SaveAction {
   type: ActionType.SAVE;
-  payload: {};
+  payload: CountriesDataType;
 }
 
 interface DeleteAction {

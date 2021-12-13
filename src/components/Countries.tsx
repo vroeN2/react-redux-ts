@@ -1,7 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import components from ".";
 import { Layout, Row, Input } from "antd";
-import { CountriesDataType } from "../state/action-types/CountriesDataType";
+import { CountriesDataType } from "../state/interfaces/CountriesDataType";
+import { ActionType } from "../state/action-types";
 
 const Countries = () => {
   const { CountryCard } = components;
@@ -11,9 +12,9 @@ const Countries = () => {
 
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<CountriesDataType[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [searchResult, setSearchResult] = useState();
+  const [searchR, setSearchR] = useState<CountriesDataType[]>([]);
 
   useEffect(() => {
     if (firstUpdate.current) {
@@ -35,7 +36,7 @@ const Countries = () => {
         }
         return res.json();
       })
-      .then((data: CountriesDataType) => {
+      .then((data: CountriesDataType[]) => {
         setItems(data);
         setIsPending(false);
         setError(null);
@@ -54,18 +55,18 @@ const Countries = () => {
 
   useEffect(() => {
     setIsPending(true);
-    const result: <CountriesDataType> = [];
+    const result: CountriesDataType[] = [];
     for (let i of items) {
       if (i.name.official.toLowerCase().includes(searchTerm.toLowerCase())) {
         result.push(i);
       }
     }
-    setSearchResult(result);
+    setSearchR(result);
     setIsPending(false);
   }, [items]);
 
-  const handleChange = (e) => {
-    setSearchTerm(e.target.value);
+  const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setSearchTerm(e.currentTarget.value);
   };
 
   return (
@@ -99,8 +100,12 @@ const Countries = () => {
             <Layout className="p-0">
               <Row className="align-items-center justify-content-center">
                 {!error &&
-                  searchResult.map((item, index) => (
-                    <CountryCard country={item} type="save" key={index} />
+                  searchR.map((item, index) => (
+                    <CountryCard
+                      details={item}
+                      type={ActionType.SAVE}
+                      key={index}
+                    />
                   ))}
               </Row>
             </Layout>
