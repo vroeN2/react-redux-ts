@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Layout, Row } from "antd";
+import { Space, Row } from "antd";
 import components from "../components";
 import { ActionType } from "../state/action-types";
 import { Key } from "react";
@@ -7,20 +7,20 @@ import { CountriesDataType } from "../state/interfaces/CountriesDataType";
 import { ReducerType } from "../state/reducers";
 
 const Saved = () => {
-  const { CountryCard } = components;
+  const { SavedCountryCard } = components;
 
   const state = useSelector((store: ReducerType) => store);
 
   if (state.saved.length > 0) {
     return (
-      <Layout className="p-0">
+      <Space className="p-0">
         <Row className="align-items-center justify-content-center">
           {state.saved.map(
             (
               item: { details: CountriesDataType; id: number | undefined },
               index: Key | null | undefined
             ) => (
-              <CountryCard
+              <SavedCountryCard
                 details={item.details}
                 type={ActionType.DELETE}
                 id={item.id}
@@ -29,7 +29,7 @@ const Saved = () => {
             )
           )}
         </Row>
-      </Layout>
+      </Space>
     );
   } else {
     return (

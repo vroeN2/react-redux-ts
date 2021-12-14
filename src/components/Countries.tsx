@@ -5,7 +5,7 @@ import { CountriesDataType } from "../state/interfaces/CountriesDataType";
 import { ActionType } from "../state/action-types";
 
 const Countries = () => {
-  const { CountryCard } = components;
+  const { NewCountryCard } = components;
   const { Search } = Input;
 
   const firstUpdate = useRef(true);
@@ -46,7 +46,7 @@ const Countries = () => {
           console.log("fetch aborted");
         } else {
           setIsPending(false);
-          // setError(err.message);
+          setError(err.message);
         }
       });
 
@@ -100,7 +100,7 @@ const Countries = () => {
             <Row className="align-items-center justify-content-center">
               {!error &&
                 searchR.map((item, index) => (
-                  <CountryCard
+                  <NewCountryCard
                     details={item}
                     type={ActionType.SAVE}
                     key={index}

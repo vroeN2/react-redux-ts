@@ -1,5 +1,6 @@
 import Countries from "./Countries";
-import CountryCard from "./CountryCard";
+import NewCountryCard from "./NewCountryCard";
+import SavedCountryCard from "./SavedCountryCard";
 import Error from "./Error";
 import Navbar from "./Navbar";
 import Saved from "./Saved";
@@ -7,9 +8,10 @@ import { SaveButton, DeleteButton } from "./MyButton";
 
 const components = {
   Countries,
-  CountryCard,
   Error,
   Navbar,
+  NewCountryCard,
+  SavedCountryCard,
   Saved,
   SaveButton,
   DeleteButton,
