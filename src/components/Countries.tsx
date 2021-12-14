@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import components from ".";
-import { Layout, Row, Input } from "antd";
+import { Space, Row, Input } from "antd";
 import { CountriesDataType } from "../state/interfaces/CountriesDataType";
 import { ActionType } from "../state/action-types";
 
@@ -46,7 +46,7 @@ const Countries = () => {
           console.log("fetch aborted");
         } else {
           setIsPending(false);
-          setError(err.message);
+          // setError(err.message);
         }
       });
 
@@ -71,47 +71,45 @@ const Countries = () => {
 
   return (
     <div className="main__wrapper">
-      <Layout className="p-2">
-        <div className="input-group">
-          <span className="input-group-text my-2 p-2">🔍</span>
+      <Space direction="vertical">
+        <Row className="search__wrapper">
           <Search
+            addonBefore="🔍"
+            enterButton="Search"
+            size="large"
             className="searchbox"
-            placeholder="start typing to see the results"
+            placeholder="start typing "
             value={searchTerm}
             onChange={(e) => handleChange(e)}
-            enterButton
           />
-        </div>
 
-        <div className="response__wrapper">
-          <Layout className="p-0">
+          <div className="response__wrapper">
             <div className="heading">
               <div className="heading__text text-center display-3">
                 Countries
               </div>
             </div>
-          </Layout>
+          </div>
+        </Row>
+        {isPending && <p className="lead p-4">loading...</p>}
 
-          {isPending && <p className="lead p-4">loading...</p>}
+        {!isPending && error && <h2 className="text-center mt-5">{error}</h2>}
 
-          {!isPending && error && <h2 className="text-center mt-5">{error}</h2>}
-
-          {!isPending && (
-            <Layout className="p-0">
-              <Row className="align-items-center justify-content-center">
-                {!error &&
-                  searchR.map((item, index) => (
-                    <CountryCard
-                      details={item}
-                      type={ActionType.SAVE}
-                      key={index}
-                    />
-                  ))}
-              </Row>
-            </Layout>
-          )}
-        </div>
-      </Layout>
+        {!isPending && (
+          <Space className="p-0">
+            <Row className="align-items-center justify-content-center">
+              {!error &&
+                searchR.map((item, index) => (
+                  <CountryCard
+                    details={item}
+                    type={ActionType.SAVE}
+                    key={index}
+                  />
+                ))}
+            </Row>
+          </Space>
+        )}
+      </Space>
     </div>
   );
 };

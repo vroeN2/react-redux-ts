@@ -11,17 +11,11 @@ function App() {
         <Navbar />
         <div className="container">
           <Routes>
-            <Route path="/">
-              <Countries />
-            </Route>
+            <Route path="/" element={<Countries />} />
 
-            <Route path="/saved">
-              <Saved />
-            </Route>
+            <Route path="/saved" element={<Saved />} />
 
-            <Route path="*">
-              <Error />
-            </Route>
+            <Route path="*" element={<Error />} />
           </Routes>
         </div>
       </div>

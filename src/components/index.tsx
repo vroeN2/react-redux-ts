@@ -1,20 +1,18 @@
 import Countries from "./Countries";
 import CountryCard from "./CountryCard";
 import Error from "./Error";
-import MyButton from "./MyButton";
 import Navbar from "./Navbar";
 import Saved from "./Saved";
-import useSortableData from "../hooks/useSortableData";
+import { SaveButton, DeleteButton } from "./MyButton";
 
 const components = {
   Countries,
   CountryCard,
   Error,
-  MyButton,
   Navbar,
   Saved,
-
-  useSortableData,
+  SaveButton,
+  DeleteButton,
 };
 
 export default components;
