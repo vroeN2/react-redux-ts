@@ -12,7 +12,6 @@ const Countries = () => {
 
   const [isPending, setIsPending] = useState(true);
   const [error, setError] = useState(null);
-  const [items, setItems] = useState<CountriesDataType[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchR, setSearchR] = useState<CountriesDataType[]>([]);
 
@@ -37,7 +36,13 @@ const Countries = () => {
         return res.json();
       })
       .then((data: CountriesDataType[]) => {
-        setItems(data);
+        setSearchR(
+          data.filter((country) =>
+            country.name.official
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase())
+          )
+        );
         setIsPending(false);
         setError(null);
       })
@@ -52,18 +57,6 @@ const Countries = () => {
 
     return () => abortCont.abort();
   }, [searchTerm]);
-
-  useEffect(() => {
-    setIsPending(true);
-    const result: CountriesDataType[] = [];
-    for (let i of items) {
-      if (i.name.official.toLowerCase().includes(searchTerm.toLowerCase())) {
-        result.push(i);
-      }
-    }
-    setSearchR(result);
-    setIsPending(false);
-  }, [items]);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setSearchTerm(e.currentTarget.value);
@@ -91,7 +84,9 @@ const Countries = () => {
             </div>
           </div>
         </Row>
-        {isPending && <p className="lead p-4">loading...</p>}
+        {!firstUpdate.current && isPending && (
+          <p className="lead p-4">loading...</p>
+        )}
 
         {!isPending && error && <h2 className="text-center mt-5">{error}</h2>}
 
