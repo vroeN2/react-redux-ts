@@ -157,6 +157,10 @@ body {
   color: var(--snow);
 }
 
+.saved__wrapper {
+  margin-top: 1vh;
+}
+
 .button__back {
   width: 7.5vw;
   height: 3.75vh;

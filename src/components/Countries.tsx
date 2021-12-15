@@ -92,7 +92,7 @@ const Countries = () => {
 
         {!isPending && (
           <Space className="p-0">
-            <Row className="align-items-center justify-content-center">
+            <Row gutter={[8, 8]}>
               {!error &&
                 searchR.map((item, index) => (
                   <NewCountryCard

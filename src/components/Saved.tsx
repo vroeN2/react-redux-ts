@@ -13,8 +13,8 @@ const Saved = () => {
 
   if (state.saved.length > 0) {
     return (
-      <Space className="p-0">
-        <Row className="align-items-center justify-content-center">
+      <Space className="saved__wrapper">
+        <Row gutter={[8, 8]}>
           {state.saved.map(
             (
               item: { details: CountriesDataType; id: number | undefined },
